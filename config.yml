@@ -1,0 +1,14 @@
+input: RSBot-7062.jar
+output: deob/RSBot-7062.jar
+
+path:
+    - "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar"
+
+transformers:
+    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.SourceFileClassNormalizer"
+    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.MethodNormalizer"
+    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.FieldNormalizer"
+    - "com.javadeobfuscator.deobfuscator.transformers.general.removers.IllegalSignatureRemover"
+    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.DeadCodeRemover"
+    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.GotoRearranger"
+    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.LdcSwapInvokeSwapPopRemover"
