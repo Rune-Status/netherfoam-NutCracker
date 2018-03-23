@@ -14,7 +14,6 @@ for f in `find $CLASSES -name '*.class'`; do
 
     if [ -f "$OUTPUT_FILE" ]; then
         if [ "$OUTPUT_FILE" -nt "$f" ]; then
-            echo "Unmodified: $f"
             continue
         fi
     fi

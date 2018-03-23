@@ -1,14 +1,38 @@
 input: RSBot-7062.jar
 output: deob/RSBot-7062.jar
 
+maxRedos: 1
+
 path:
     - "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar"
 
 transformers:
-    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.SourceFileClassNormalizer"
-    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.MethodNormalizer"
-    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.FieldNormalizer"
     - "com.javadeobfuscator.deobfuscator.transformers.general.removers.IllegalSignatureRemover"
+    - "com.javadeobfuscator.deobfuscator.transformers.allatori.string.StringEncryptionTransformer"
+    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.GotoRearranger"
+
+    - "com.javadeobfuscator.deobfuscator.transformers.general.removers.SyntheticBridgeRemover"
+    - "com.javadeobfuscator.deobfuscator.transformers.general.removers.IllegalVarargsRemover"
+    - "com.javadeobfuscator.deobfuscator.transformers.general.removers.LineNumberRemover"
+    - "com.javadeobfuscator.deobfuscator.transformers.general.removers.LocalVariableRemover"
+
     - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.DeadCodeRemover"
     - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.GotoRearranger"
     - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.LdcSwapInvokeSwapPopRemover"
+
+    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.RedundantTrapRemover"
+    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.TrapHandlerMerger"
+    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.UnconditionalSwitchRemover"
+
+    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.SourceFileClassNormalizer"
+    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.MethodNormalizer"
+    #- "com.javadeobfuscator.deobfuscator.transformers.normalizer.FieldNormalizer"
+    - "org.maxgamer.rs.powerbot.deob.transformer.FieldNormalizerNamer"
+    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.DuplicateRenamer"
+    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.GotoRearranger"
+
+    #- "com.javadeobfuscator.deobfuscator.transformers.general.peephole.ConstantFolder" # -- Causing some issues with LDC registers
+    #- "com.javadeobfuscator.deobfuscator.transformers.general.peephole.PeepholeOptimizer" # -- Causing some issues with LDC registers (it uses ConstantFolder)
+
+
+    #- "com.javadeobfuscator.deobfuscator.transformers.dasho.string.StringEncryptionTransformer" # -- Not the right one?
