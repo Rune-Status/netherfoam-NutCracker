@@ -7,29 +7,83 @@ path:
     - "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar"
 
 transformers:
+    - org.maxgamer.rs.powerbot.deob.transformer.FieldNormalizerNamer:
+        illegalFields:
+          - abstract
+          - assert
+          - boolean
+          - break
+          - byte
+          - case
+          - catch
+          - char
+          - class
+          - continue
+          - default
+          - do
+          - double
+          - else
+          - enum
+          - extends
+          - final
+          - finally
+          - float
+          - for
+          - if
+          - implements
+          - import
+          - instanceof
+          - int
+          - interface
+          - long
+          - native
+          - new
+          - package
+          - private
+          - protected
+          - public
+          - return
+          - short
+          - static
+          - strictfp
+          - super
+          - switch
+          - synchronized
+          - this
+          - throw
+          - throws
+          - transient
+          - try
+          - void
+          - volatile
+          - while
+          - true
+          - null
+          - false
+          - const
+          - goto
+
     - "com.javadeobfuscator.deobfuscator.transformers.general.removers.IllegalSignatureRemover"
     - "com.javadeobfuscator.deobfuscator.transformers.allatori.string.StringEncryptionTransformer"
-    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.GotoRearranger"
 
-    - "com.javadeobfuscator.deobfuscator.transformers.general.removers.SyntheticBridgeRemover"
+    #- "com.javadeobfuscator.deobfuscator.transformers.general.removers.SyntheticBridgeRemover"
     - "com.javadeobfuscator.deobfuscator.transformers.general.removers.IllegalVarargsRemover"
-    - "com.javadeobfuscator.deobfuscator.transformers.general.removers.LineNumberRemover"
+    #- "com.javadeobfuscator.deobfuscator.transformers.general.removers.LineNumberRemover"
     - "com.javadeobfuscator.deobfuscator.transformers.general.removers.LocalVariableRemover"
 
-    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.DeadCodeRemover"
+    #- "com.javadeobfuscator.deobfuscator.transformers.general.peephole.DeadCodeRemover"
     - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.GotoRearranger"
     - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.LdcSwapInvokeSwapPopRemover"
 
-    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.RedundantTrapRemover"
-    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.TrapHandlerMerger"
-    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.UnconditionalSwitchRemover"
+    #- "com.javadeobfuscator.deobfuscator.transformers.general.peephole.RedundantTrapRemover"
+    #- "com.javadeobfuscator.deobfuscator.transformers.general.peephole.TrapHandlerMerger"
+    #- "com.javadeobfuscator.deobfuscator.transformers.general.peephole.UnconditionalSwitchRemover"
 
-    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.SourceFileClassNormalizer"
+    #- "com.javadeobfuscator.deobfuscator.transformers.normalizer.SourceFileClassNormalizer"
     - "com.javadeobfuscator.deobfuscator.transformers.normalizer.MethodNormalizer"
-    #- "com.javadeobfuscator.deobfuscator.transformers.normalizer.FieldNormalizer"
-    - "org.maxgamer.rs.powerbot.deob.transformer.FieldNormalizerNamer"
-    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.DuplicateRenamer"
-    - "com.javadeobfuscator.deobfuscator.transformers.general.peephole.GotoRearranger"
+    - "com.javadeobfuscator.deobfuscator.transformers.normalizer.FieldNormalizer"
+    #- "com.javadeobfuscator.deobfuscator.transformers.normalizer.DuplicateRenamer"
+    #- "com.javadeobfuscator.deobfuscator.transformers.general.peephole.GotoRearranger"
 
     #- "com.javadeobfuscator.deobfuscator.transformers.general.peephole.ConstantFolder" # -- Causing some issues with LDC registers
     #- "com.javadeobfuscator.deobfuscator.transformers.general.peephole.PeepholeOptimizer" # -- Causing some issues with LDC registers (it uses ConstantFolder)

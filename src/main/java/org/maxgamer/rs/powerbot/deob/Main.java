@@ -76,6 +76,9 @@ public class Main {
         Enumeration<? extends ZipEntry> entries = zipFile.entries();
 
         File classesRoot = new File(deobJar.getAbsoluteFile().getParentFile(), "classes");
+        if (!classesRoot.mkdirs() && !classesRoot.exists()) {
+            throw new FileNotFoundException("Couldn't find or create " + classesRoot.getAbsolutePath());
+        }
 
         long updated = 0;
         while(entries.hasMoreElements()){
@@ -86,7 +89,6 @@ public class Main {
             File outputClass = new File(classesRoot, name);
             byte[] buffer = new byte[1024];
             if (outputClass.exists()) {
-
                 try (FileInputStream crcInput = new FileInputStream(outputClass)) {
                     CRC32 crc = new CRC32();
 
@@ -99,6 +101,11 @@ public class Main {
                     if (expected == entry.getCrc()) {
                         continue;
                     }
+                }
+            } else {
+                File outputClassParent = outputClass.getParentFile();
+                if (!outputClassParent.mkdirs() && !outputClassParent.exists()) {
+                    throw new FileNotFoundException("Couldn't find or create " + outputClassParent.getAbsolutePath());
                 }
             }
 

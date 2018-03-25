@@ -22,16 +22,21 @@ public class JarUtil {
         for (Enumeration e = input.entries(); e.hasMoreElements(); ) {
             ZipEntry entry = (ZipEntry) e.nextElement();
 
-            if (!entry.getName().equalsIgnoreCase("META-INF/MANIFEST.MF")) {
-                out.putNextEntry(entry);
-                try (InputStream content = input.getInputStream(entry)) {
-                    IOUtils.copy(content, out);
-                }
-                out.closeEntry();
+            String name = entry.getName();
+            if (name.equals("META-INF/MANIFEST.MF")) {
+                rewrite(input.getInputStream(entry), out);
+                continue;
+            } else if (name.equalsIgnoreCase("META-INF/SERVER.RSA")) {
+                continue;
+            } else if (name.equalsIgnoreCase("META-INF/SERVER.SF")) {
                 continue;
             }
 
-            rewrite(input.getInputStream(entry), out);
+            out.putNextEntry(entry);
+            try (InputStream content = input.getInputStream(entry)) {
+                IOUtils.copy(content, out);
+            }
+            out.closeEntry();
         }
         out.closeEntry();
         out.close();

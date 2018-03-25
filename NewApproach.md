@@ -6,6 +6,19 @@ Retrieving the deobfuscated code isn't working, but now I know:
 * The code is signed. It can be unsigned by:
   * Removing META-INF RSA keys
   * Removing the SHA signatures from the MANIFEST.MF file (Maybe not required?)
+* Everything in z/ appears to be a Dependency of Powerbot
+  * These dependencies are probably publicly available
+  * Eg `z/nul` appears to be `org.objectweb.asm.Opcodes`
+
+The deobfuscator / decompiler appear to miss a handful of things:
+* `this` is incorrectly referenced as `a` (It's sometimes suffixed by a number)
+  * Hopefully a Transformer could fix this
+* Interfaces have their `public static final` fields assigned inside a `static{}` block
+  * These assignments should be inlined with their respective declarations
+* The deobfuscators crash on some methods (both Fernflower & CFR)
+  * Possible that this is triggered by ASM?
+  * Stack overflows still occur with 16M stack instead of 512K
+* Some classes are marked as static and this is a compile error
 
 So, perhaps it's time for a new approach. To only edit the bot, instead of
 deobfuscate the whole thing.
